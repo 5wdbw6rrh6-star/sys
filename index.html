@@ -1,0 +1,2861 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TM | Tech Market</title>
+
+<style>
+:root{
+    --primary:#111827;
+    --secondary:#2563eb;
+    --success:#16a34a;
+    --danger:#dc2626;
+    --warning:#d97706;
+    --bg:#f3f4f6;
+    --card:#ffffff;
+    --text:#111827;
+    --muted:#6b7280;
+    --border:#e5e7eb;
+}
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Tahoma,Arial,sans-serif;
+}
+
+body{
+    background:var(--bg);
+    color:var(--text);
+}
+
+button,
+input,
+select{
+    font-family:inherit;
+}
+
+button{
+    cursor:pointer;
+    border:none;
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar{
+    position:fixed;
+    right:0;
+    top:0;
+    width:250px;
+    height:100vh;
+    background:#111827;
+    color:white;
+    padding:20px 15px;
+    z-index:1000;
+}
+
+.logo{
+    text-align:center;
+    padding:10px 0 25px;
+    border-bottom:1px solid #374151;
+    margin-bottom:20px;
+}
+
+.logo h1{
+    font-size:28px;
+    letter-spacing:2px;
+}
+
+.logo p{
+    color:#9ca3af;
+    font-size:13px;
+    margin-top:5px;
+}
+
+.menu button{
+    width:100%;
+    background:transparent;
+    color:#d1d5db;
+    text-align:right;
+    padding:13px 15px;
+    margin-bottom:5px;
+    border-radius:8px;
+    font-size:15px;
+    transition:.2s;
+}
+
+.menu button:hover,
+.menu button.active{
+    background:#2563eb;
+    color:white;
+}
+
+/* =========================
+   MAIN
+========================= */
+
+.main{
+    margin-right:250px;
+    min-height:100vh;
+    padding:25px;
+}
+
+.topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
+}
+
+.topbar h2{
+    font-size:25px;
+}
+
+.date{
+    color:var(--muted);
+}
+
+/* =========================
+   SECTIONS
+========================= */
+
+.section{
+    display:none;
+}
+
+.section.active{
+    display:block;
+}
+
+/* =========================
+   CARDS
+========================= */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+    margin-bottom:25px;
+}
+
+.stat{
+    background:white;
+    border-radius:12px;
+    padding:20px;
+    border:1px solid var(--border);
+    box-shadow:0 3px 10px rgba(0,0,0,.03);
+}
+
+.stat-title{
+    color:var(--muted);
+    font-size:14px;
+    margin-bottom:12px;
+}
+
+.stat-value{
+    font-size:26px;
+    font-weight:bold;
+}
+
+.stat.blue .stat-value{
+    color:var(--secondary);
+}
+
+.stat.green .stat-value{
+    color:var(--success);
+}
+
+.stat.red .stat-value{
+    color:var(--danger);
+}
+
+.stat.orange .stat-value{
+    color:var(--warning);
+}
+
+/* =========================
+   CONTENT
+========================= */
+
+.grid{
+    display:grid;
+    grid-template-columns:2fr 1fr;
+    gap:20px;
+}
+
+.card{
+    background:white;
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:20px;
+    margin-bottom:20px;
+}
+
+.card-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:18px;
+}
+
+.card-header h3{
+    font-size:18px;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+.btn{
+    padding:10px 16px;
+    border-radius:7px;
+    color:white;
+    background:var(--secondary);
+    font-size:14px;
+}
+
+.btn:hover{
+    opacity:.9;
+}
+
+.btn-success{
+    background:var(--success);
+}
+
+.btn-danger{
+    background:var(--danger);
+}
+
+.btn-dark{
+    background:var(--primary);
+}
+
+.btn-warning{
+    background:var(--warning);
+}
+
+.btn-small{
+    padding:6px 10px;
+    font-size:12px;
+}
+
+/* =========================
+   TABLE
+========================= */
+
+.table-container{
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th,
+td{
+    padding:12px 10px;
+    border-bottom:1px solid var(--border);
+    text-align:right;
+    white-space:nowrap;
+}
+
+th{
+    background:#f9fafb;
+    color:#4b5563;
+    font-size:13px;
+}
+
+td{
+    font-size:14px;
+}
+
+.badge{
+    display:inline-block;
+    padding:4px 9px;
+    border-radius:20px;
+    font-size:12px;
+}
+
+.badge.success{
+    background:#dcfce7;
+    color:#166534;
+}
+
+.badge.danger{
+    background:#fee2e2;
+    color:#991b1b;
+}
+
+.badge.warning{
+    background:#fef3c7;
+    color:#92400e;
+}
+
+/* =========================
+   FORM
+========================= */
+
+.form-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:15px;
+}
+
+.form-group{
+    display:flex;
+    flex-direction:column;
+    gap:7px;
+}
+
+.form-group.full{
+    grid-column:1/-1;
+}
+
+label{
+    font-size:13px;
+    color:#4b5563;
+}
+
+input,
+select{
+    width:100%;
+    padding:11px 12px;
+    border:1px solid #d1d5db;
+    border-radius:7px;
+    outline:none;
+    background:white;
+}
+
+input:focus,
+select:focus{
+    border-color:var(--secondary);
+}
+
+/* =========================
+   MODAL
+========================= */
+
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.55);
+    z-index:2000;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+
+.modal.show{
+    display:flex;
+}
+
+.modal-box{
+    background:white;
+    width:600px;
+    max-width:100%;
+    max-height:90vh;
+    overflow-y:auto;
+    border-radius:12px;
+    padding:25px;
+}
+
+.modal-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+.close{
+    background:none;
+    font-size:25px;
+    color:#6b7280;
+}
+
+/* =========================
+   SALE CART
+========================= */
+
+.sale-layout{
+    display:grid;
+    grid-template-columns:1.5fr 1fr;
+    gap:20px;
+}
+
+.cart-total{
+    background:#111827;
+    color:white;
+    padding:20px;
+    border-radius:10px;
+    margin-top:15px;
+}
+
+.cart-total-row{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:10px;
+}
+
+.cart-total .final{
+    font-size:25px;
+    font-weight:bold;
+    padding-top:10px;
+    border-top:1px solid #374151;
+}
+
+/* =========================
+   ALERT
+========================= */
+
+.alert{
+    padding:12px 15px;
+    border-radius:8px;
+    margin-bottom:10px;
+}
+
+.alert.warning{
+    background:#fff7ed;
+    color:#9a3412;
+}
+
+.alert.danger{
+    background:#fef2f2;
+    color:#991b1b;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+.mobile-menu{
+    display:none;
+}
+
+@media(max-width:900px){
+
+    .sidebar{
+        transform:translateX(100%);
+        transition:.3s;
+    }
+
+    .sidebar.open{
+        transform:translateX(0);
+    }
+
+    .main{
+        margin-right:0;
+        padding:15px;
+    }
+
+    .mobile-menu{
+        display:block;
+        background:#111827;
+        color:white;
+        padding:10px 14px;
+        border-radius:7px;
+        font-size:20px;
+    }
+
+    .topbar{
+        gap:15px;
+    }
+
+    .stats{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .grid,
+    .sale-layout{
+        grid-template-columns:1fr;
+    }
+}
+
+@media(max-width:550px){
+
+    .stats{
+        grid-template-columns:1fr;
+    }
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- =========================
+     SIDEBAR
+========================= -->
+
+<aside class="sidebar" id="sidebar">
+
+    <div class="logo">
+        <h1>TM</h1>
+        <p>TECH MARKET</p>
+    </div>
+
+    <div class="menu">
+
+        <button class="active" onclick="showSection('dashboard',this)">
+            🏠 الرئيسية
+        </button>
+
+        <button onclick="showSection('products',this)">
+            📦 المنتجات والمخزون
+        </button>
+
+        <button onclick="showSection('sales',this)">
+            🛒 المبيعات
+        </button>
+
+        <button onclick="showSection('purchases',this)">
+            🚚 المشتريات
+        </button>
+
+        <button onclick="showSection('expenses',this)">
+            💸 المصروفات
+        </button>
+
+        <button onclick="showSection('cashbox',this)">
+            💰 الخزنة
+        </button>
+
+        <button onclick="showSection('reports',this)">
+            📊 التقارير
+        </button>
+
+    </div>
+
+</aside>
+
+
+<!-- =========================
+     MAIN
+========================= -->
+
+<main class="main">
+
+    <div class="topbar">
+
+        <div style="display:flex;align-items:center;gap:12px">
+
+            <button class="mobile-menu" onclick="toggleSidebar()">
+                ☰
+            </button>
+
+            <div>
+                <h2 id="pageTitle">لوحة التحكم</h2>
+                <div class="date" id="todayDate"></div>
+            </div>
+
+        </div>
+
+        <button class="btn btn-dark" onclick="backupData()">
+            💾 نسخ احتياطي
+        </button>
+
+    </div>
+
+
+    <!-- =========================
+         DASHBOARD
+    ========================= -->
+
+    <section id="dashboard" class="section active">
+
+        <div class="stats">
+
+            <div class="stat blue">
+                <div class="stat-title">مبيعات اليوم</div>
+                <div class="stat-value" id="todaySales">0 ج.م</div>
+            </div>
+
+            <div class="stat green">
+                <div class="stat-title">ربح اليوم</div>
+                <div class="stat-value" id="todayProfit">0 ج.م</div>
+            </div>
+
+            <div class="stat orange">
+                <div class="stat-title">الخزنة</div>
+                <div class="stat-value" id="cashBalance">0 ج.م</div>
+            </div>
+
+            <div class="stat red">
+                <div class="stat-title">عدد الأصناف</div>
+                <div class="stat-value" id="productsCount">0</div>
+            </div>
+
+        </div>
+
+
+        <div class="grid">
+
+            <div class="card">
+
+                <div class="card-header">
+                    <h3>آخر المبيعات</h3>
+                    <button class="btn btn-small" onclick="showSectionByName('sales')">
+                        كل المبيعات
+                    </button>
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>الفاتورة</th>
+                                <th>التاريخ</th>
+                                <th>الإجمالي</th>
+                                <th>الدفع</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="recentSales"></tbody>
+                    </table>
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-header">
+                    <h3>تنبيهات المخزون</h3>
+                </div>
+
+                <div id="stockAlerts"></div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         PRODUCTS
+    ========================= -->
+
+    <section id="products" class="section">
+
+        <div class="card">
+
+            <div class="card-header">
+
+                <h3>المنتجات والمخزون</h3>
+
+                <button class="btn" onclick="openProductModal()">
+                    + إضافة منتج
+                </button>
+
+            </div>
+
+            <input
+                type="text"
+                id="productSearch"
+                placeholder="🔎 ابحث عن منتج..."
+                oninput="renderProducts()"
+                style="margin-bottom:15px"
+            >
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>الكود</th>
+                            <th>المنتج</th>
+                            <th>القسم</th>
+                            <th>شراء</th>
+                            <th>بيع</th>
+                            <th>الكمية</th>
+                            <th>الحالة</th>
+                            <th>إجراء</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="productsTable"></tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         SALES
+    ========================= -->
+
+    <section id="sales" class="section">
+
+        <div class="sale-layout">
+
+            <div class="card">
+
+                <div class="card-header">
+                    <h3>فاتورة بيع جديدة</h3>
+                </div>
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+
+                        <label>المنتج</label>
+
+                        <select id="saleProduct"></select>
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>الكمية</label>
+
+                        <input
+                            type="number"
+                            id="saleQuantity"
+                            value="1"
+                            min="1"
+                        >
+
+                    </div>
+
+                </div>
+
+                <br>
+
+                <button class="btn" onclick="addToCart()">
+                    + إضافة للفاتورة
+                </button>
+
+                <div class="table-container" style="margin-top:20px">
+
+                    <table>
+
+                        <thead>
+                            <tr>
+                                <th>المنتج</th>
+                                <th>الكمية</th>
+                                <th>السعر</th>
+                                <th>الإجمالي</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="cartTable"></tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-header">
+                    <h3>إتمام البيع</h3>
+                </div>
+
+                <div class="form-group">
+
+                    <label>الخصم</label>
+
+                    <input
+                        type="number"
+                        id="saleDiscount"
+                        value="0"
+                        min="0"
+                        oninput="renderCart()"
+                    >
+
+                </div>
+
+                <br>
+
+                <div class="form-group">
+
+                    <label>طريقة الدفع</label>
+
+                    <select id="paymentMethod">
+
+                        <option value="كاش">كاش</option>
+                        <option value="تحويل">تحويل</option>
+                        <option value="أخرى">أخرى</option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="cart-total">
+
+                    <div class="cart-total-row">
+                        <span>الإجمالي</span>
+                        <strong id="cartSubtotal">0 ج.م</strong>
+                    </div>
+
+                    <div class="cart-total-row">
+                        <span>الخصم</span>
+                        <strong id="cartDiscount">0 ج.م</strong>
+                    </div>
+
+                    <div class="cart-total-row final">
+                        <span>المطلوب</span>
+                        <strong id="cartFinal">0 ج.م</strong>
+                    </div>
+
+                </div>
+
+                <button
+                    class="btn btn-success"
+                    style="width:100%;margin-top:15px"
+                    onclick="completeSale()"
+                >
+                    ✓ إتمام البيع
+                </button>
+
+                <button
+                    class="btn btn-danger"
+                    style="width:100%;margin-top:10px"
+                    onclick="clearCart()"
+                >
+                    إلغاء الفاتورة
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-header">
+                <h3>سجل المبيعات</h3>
+            </div>
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>الفاتورة</th>
+                            <th>التاريخ</th>
+                            <th>عدد الأصناف</th>
+                            <th>الإجمالي</th>
+                            <th>الدفع</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="salesTable"></tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         PURCHASES
+    ========================= -->
+
+    <section id="purchases" class="section">
+
+        <div class="card">
+
+            <div class="card-header">
+
+                <h3>إضافة مشتريات</h3>
+
+            </div>
+
+            <div class="form-grid">
+
+                <div class="form-group">
+
+                    <label>المنتج</label>
+
+                    <select id="purchaseProduct"></select>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>الكمية</label>
+
+                    <input
+                        type="number"
+                        id="purchaseQuantity"
+                        value="1"
+                        min="1"
+                    >
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>سعر الشراء</label>
+
+                    <input
+                        type="number"
+                        id="purchasePrice"
+                        min="0"
+                    >
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>المورد</label>
+
+                    <input
+                        type="text"
+                        id="supplier"
+                        placeholder="اسم المورد"
+                    >
+
+                </div>
+
+            </div>
+
+            <br>
+
+            <button class="btn" onclick="addPurchase()">
+                تسجيل المشتريات
+            </button>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-header">
+                <h3>سجل المشتريات</h3>
+            </div>
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+                            <th>التاريخ</th>
+                            <th>المنتج</th>
+                            <th>الكمية</th>
+                            <th>التكلفة</th>
+                            <th>المورد</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="purchasesTable"></tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         EXPENSES
+    ========================= -->
+
+    <section id="expenses" class="section">
+
+        <div class="card">
+
+            <div class="card-header">
+                <h3>تسجيل مصروف</h3>
+            </div>
+
+            <div class="form-grid">
+
+                <div class="form-group">
+
+                    <label>بيان المصروف</label>
+
+                    <input
+                        type="text"
+                        id="expenseName"
+                        placeholder="مثال: كهرباء، مواصلات..."
+                    >
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>المبلغ</label>
+
+                    <input
+                        type="number"
+                        id="expenseAmount"
+                        min="0"
+                    >
+
+                </div>
+
+            </div>
+
+            <br>
+
+            <button class="btn btn-danger" onclick="addExpense()">
+                تسجيل المصروف
+            </button>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-header">
+                <h3>سجل المصروفات</h3>
+            </div>
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+                            <th>التاريخ</th>
+                            <th>البيان</th>
+                            <th>المبلغ</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="expensesTable"></tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         CASHBOX
+    ========================= -->
+
+    <section id="cashbox" class="section">
+
+        <div class="stats">
+
+            <div class="stat orange">
+
+                <div class="stat-title">
+                    رصيد الخزنة الحالي
+                </div>
+
+                <div class="stat-value" id="cashCurrent">
+                    0 ج.م
+                </div>
+
+            </div>
+
+            <div class="stat blue">
+
+                <div class="stat-title">
+                    إجمالي المبيعات
+                </div>
+
+                <div class="stat-value" id="cashSales">
+                    0 ج.م
+                </div>
+
+            </div>
+
+            <div class="stat red">
+
+                <div class="stat-title">
+                    إجمالي المصروفات
+                </div>
+
+                <div class="stat-value" id="cashExpenses">
+                    0 ج.م
+                </div>
+
+            </div>
+
+            <div class="stat green">
+
+                <div class="stat-title">
+                    إجمالي المشتريات
+                </div>
+
+                <div class="stat-value" id="cashPurchases">
+                    0 ج.م
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-header">
+                <h3>إعداد رصيد بداية الخزنة</h3>
+            </div>
+
+            <div class="form-grid">
+
+                <div class="form-group">
+
+                    <label>الرصيد الافتتاحي</label>
+
+                    <input
+                        type="number"
+                        id="openingBalance"
+                        min="0"
+                    >
+
+                </div>
+
+            </div>
+
+            <br>
+
+            <button class="btn" onclick="setOpeningBalance()">
+                حفظ الرصيد
+            </button>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-header">
+                <h3>حركة الخزنة</h3>
+            </div>
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+                            <th>التاريخ</th>
+                            <th>النوع</th>
+                            <th>البيان</th>
+                            <th>المبلغ</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="cashTable"></tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         REPORTS
+    ========================= -->
+
+    <section id="reports" class="section">
+
+        <div class="stats">
+
+            <div class="stat blue">
+                <div class="stat-title">إجمالي المبيعات</div>
+                <div class="stat-value" id="reportSales">0</div>
+            </div>
+
+            <div class="stat green">
+                <div class="stat-title">إجمالي الأرباح</div>
+                <div class="stat-value" id="reportProfit">0</div>
+            </div>
+
+            <div class="stat red">
+                <div class="stat-title">إجمالي المصروفات</div>
+                <div class="stat-value" id="reportExpenses">0</div>
+            </div>
+
+            <div class="stat orange">
+                <div class="stat-title">قيمة المخزون</div>
+                <div class="stat-value" id="reportStock">0</div>
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-header">
+                <h3>ملخص النشاط</h3>
+            </div>
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+                            <th>البند</th>
+                            <th>القيمة</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="reportTable"></tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- =========================
+     PRODUCT MODAL
+========================= -->
+
+<div class="modal" id="productModal">
+
+    <div class="modal-box">
+
+        <div class="modal-header">
+
+            <h3 id="productModalTitle">
+                إضافة منتج
+            </h3>
+
+            <button class="close" onclick="closeProductModal()">
+                ×
+            </button>
+
+        </div>
+
+        <div class="form-grid">
+
+            <div class="form-group">
+
+                <label>كود المنتج</label>
+
+                <input
+                    type="text"
+                    id="productCode"
+                    placeholder="مثال: USB001"
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label>اسم المنتج</label>
+
+                <input
+                    type="text"
+                    id="productName"
+                    placeholder="اسم المنتج"
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label>القسم</label>
+
+                <select id="productCategory">
+
+                    <option>إكسسوارات موبايل</option>
+                    <option>شواحن</option>
+                    <option>كابلات</option>
+                    <option>إكسسوارات كمبيوتر</option>
+                    <option>قطع غيار</option>
+                    <option>أخرى</option>
+
+                </select>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>سعر الشراء</label>
+
+                <input
+                    type="number"
+                    id="productBuy"
+                    min="0"
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label>سعر البيع</label>
+
+                <input
+                    type="number"
+                    id="productSell"
+                    min="0"
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label>الكمية</label>
+
+                <input
+                    type="number"
+                    id="productQuantity"
+                    min="0"
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label>حد التنبيه</label>
+
+                <input
+                    type="number"
+                    id="productMin"
+                    value="2"
+                    min="0"
+                >
+
+            </div>
+
+        </div>
+
+        <br>
+
+        <button
+            class="btn btn-success"
+            style="width:100%"
+            onclick="saveProduct()"
+        >
+            حفظ المنتج
+        </button>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   DATABASE
+===================================================== */
+
+const DB_KEY = "tm_tech_market_v1";
+
+let db = JSON.parse(localStorage.getItem(DB_KEY)) || {
+
+    products: [],
+    sales: [],
+    purchases: [],
+    expenses: [],
+    cash: {
+        opening: 0
+    }
+
+};
+
+let cart = [];
+
+let editingProductId = null;
+
+
+/* =====================================================
+   SAVE DATABASE
+===================================================== */
+
+function saveDB(){
+
+    localStorage.setItem(
+        DB_KEY,
+        JSON.stringify(db)
+    );
+
+}
+
+
+/* =====================================================
+   FORMAT MONEY
+===================================================== */
+
+function money(value){
+
+    return Number(value || 0).toLocaleString("ar-EG") + " ج.م";
+
+}
+
+
+/* =====================================================
+   DATE
+===================================================== */
+
+function now(){
+
+    return new Date().toISOString();
+
+}
+
+
+function formatDate(date){
+
+    return new Date(date).toLocaleString(
+        "ar-EG",
+        {
+            dateStyle:"short",
+            timeStyle:"short"
+        }
+    );
+
+}
+
+
+/* =====================================================
+   TODAY
+===================================================== */
+
+function isToday(date){
+
+    const d = new Date(date);
+    const today = new Date();
+
+    return d.toDateString() === today.toDateString();
+
+}
+
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+const sectionTitles = {
+
+    dashboard:"لوحة التحكم",
+    products:"المنتجات والمخزون",
+    sales:"المبيعات",
+    purchases:"المشتريات",
+    expenses:"المصروفات",
+    cashbox:"الخزنة",
+    reports:"التقارير"
+
+};
+
+
+function showSection(section, button){
+
+    document.querySelectorAll(".section")
+        .forEach(s => s.classList.remove("active"));
+
+    document.getElementById(section)
+        .classList.add("active");
+
+    document.querySelectorAll(".menu button")
+        .forEach(b => b.classList.remove("active"));
+
+    if(button){
+        button.classList.add("active");
+    }
+
+    document.getElementById("pageTitle")
+        .textContent = sectionTitles[section];
+
+    refresh();
+
+    if(window.innerWidth <= 900){
+        document.getElementById("sidebar")
+            .classList.remove("open");
+    }
+
+}
+
+
+function showSectionByName(section){
+
+    const button = [...document.querySelectorAll(".menu button")]
+        .find(b => b.getAttribute("onclick")?.includes(`'${section}'`));
+
+    showSection(section,button);
+
+}
+
+
+function toggleSidebar(){
+
+    document.getElementById("sidebar")
+        .classList.toggle("open");
+
+}
+
+
+/* =====================================================
+   PRODUCTS
+===================================================== */
+
+function openProductModal(id=null){
+
+    editingProductId = id;
+
+    document.getElementById("productModal")
+        .classList.add("show");
+
+    if(id){
+
+        const p = db.products.find(x => x.id === id);
+
+        if(!p) return;
+
+        document.getElementById("productModalTitle")
+            .textContent = "تعديل المنتج";
+
+        document.getElementById("productCode").value = p.code;
+        document.getElementById("productName").value = p.name;
+        document.getElementById("productCategory").value = p.category;
+        document.getElementById("productBuy").value = p.buy;
+        document.getElementById("productSell").value = p.sell;
+        document.getElementById("productQuantity").value = p.quantity;
+        document.getElementById("productMin").value = p.min;
+
+    }else{
+
+        document.getElementById("productModalTitle")
+            .textContent = "إضافة منتج";
+
+        document.getElementById("productCode").value = "";
+        document.getElementById("productName").value = "";
+        document.getElementById("productBuy").value = "";
+        document.getElementById("productSell").value = "";
+        document.getElementById("productQuantity").value = "";
+        document.getElementById("productMin").value = "2";
+
+    }
+
+}
+
+
+function closeProductModal(){
+
+    document.getElementById("productModal")
+        .classList.remove("show");
+
+}
+
+
+function saveProduct(){
+
+    const code =
+        document.getElementById("productCode").value.trim();
+
+    const name =
+        document.getElementById("productName").value.trim();
+
+    const category =
+        document.getElementById("productCategory").value;
+
+    const buy =
+        Number(document.getElementById("productBuy").value);
+
+    const sell =
+        Number(document.getElementById("productSell").value);
+
+    const quantity =
+        Number(document.getElementById("productQuantity").value);
+
+    const min =
+        Number(document.getElementById("productMin").value);
+
+
+    if(!name){
+
+        alert("اكتب اسم المنتج");
+
+        return;
+
+    }
+
+
+    if(sell <= 0){
+
+        alert("اكتب سعر البيع");
+
+        return;
+
+    }
+
+
+    if(editingProductId){
+
+        const p =
+            db.products.find(x => x.id === editingProductId);
+
+        p.code = code;
+        p.name = name;
+        p.category = category;
+        p.buy = buy;
+        p.sell = sell;
+        p.quantity = quantity;
+        p.min = min;
+
+    }else{
+
+        db.products.push({
+
+            id:Date.now().toString(),
+
+            code:
+                code ||
+                "TM-" + Math.floor(Math.random()*100000),
+
+            name,
+            category,
+            buy,
+            sell,
+            quantity,
+            min
+
+        });
+
+    }
+
+
+    saveDB();
+
+    closeProductModal();
+
+    refresh();
+
+}
+
+
+function deleteProduct(id){
+
+    if(!confirm("هل تريد حذف المنتج؟")) return;
+
+    db.products =
+        db.products.filter(p => p.id !== id);
+
+    saveDB();
+
+    refresh();
+
+}
+
+
+function renderProducts(){
+
+    const tbody =
+        document.getElementById("productsTable");
+
+    const search =
+        document.getElementById("productSearch")
+        .value
+        .toLowerCase();
+
+    const products =
+        db.products.filter(p =>
+
+            p.name.toLowerCase().includes(search) ||
+            p.code.toLowerCase().includes(search)
+
+        );
+
+
+    tbody.innerHTML = "";
+
+
+    products.forEach(p => {
+
+        let status;
+
+        if(p.quantity <= 0){
+
+            status =
+                `<span class="badge danger">نفذ</span>`;
+
+        }else if(p.quantity <= p.min){
+
+            status =
+                `<span class="badge warning">منخفض</span>`;
+
+        }else{
+
+            status =
+                `<span class="badge success">متوفر</span>`;
+
+        }
+
+
+        tbody.innerHTML += `
+
+        <tr>
+
+            <td>${p.code}</td>
+
+            <td>${p.name}</td>
+
+            <td>${p.category}</td>
+
+            <td>${money(p.buy)}</td>
+
+            <td>${money(p.sell)}</td>
+
+            <td>${p.quantity}</td>
+
+            <td>${status}</td>
+
+            <td>
+
+                <button
+                    class="btn btn-small"
+                    onclick="openProductModal('${p.id}')"
+                >
+                    تعديل
+                </button>
+
+                <button
+                    class="btn btn-danger btn-small"
+                    onclick="deleteProduct('${p.id}')"
+                >
+                    حذف
+                </button>
+
+            </td>
+
+        </tr>
+
+        `;
+
+    });
+
+}
+
+
+/* =====================================================
+   SALE PRODUCT SELECT
+===================================================== */
+
+function renderProductSelects(){
+
+    const saleSelect =
+        document.getElementById("saleProduct");
+
+    const purchaseSelect =
+        document.getElementById("purchaseProduct");
+
+
+    saleSelect.innerHTML =
+        `<option value="">اختر المنتج</option>`;
+
+    purchaseSelect.innerHTML =
+        `<option value="">اختر المنتج</option>`;
+
+
+    db.products.forEach(p => {
+
+        saleSelect.innerHTML += `
+
+            <option value="${p.id}">
+                ${p.name} — ${money(p.sell)} — مخزون: ${p.quantity}
+            </option>
+
+        `;
+
+
+        purchaseSelect.innerHTML += `
+
+            <option value="${p.id}">
+                ${p.name}
+            </option>
+
+        `;
+
+    });
+
+}
+
+
+/* =====================================================
+   CART
+===================================================== */
+
+function addToCart(){
+
+    const productId =
+        document.getElementById("saleProduct").value;
+
+    const quantity =
+        Number(document.getElementById("saleQuantity").value);
+
+
+    if(!productId){
+
+        alert("اختر المنتج");
+
+        return;
+
+    }
+
+
+    if(quantity <= 0){
+
+        alert("الكمية غير صحيحة");
+
+        return;
+
+    }
+
+
+    const product =
+        db.products.find(p => p.id === productId);
+
+
+    if(!product){
+
+        return;
+
+    }
+
+
+    const existing =
+        cart.find(i => i.productId === productId);
+
+
+    const currentQuantity =
+        existing ? existing.quantity : 0;
+
+
+    if(currentQuantity + quantity > product.quantity){
+
+        alert(
+            `الكمية المطلوبة أكبر من المخزون المتاح (${product.quantity})`
+        );
+
+        return;
+
+    }
+
+
+    if(existing){
+
+        existing.quantity += quantity;
+
+    }else{
+
+        cart.push({
+
+            productId,
+            quantity,
+            price:product.sell
+
+        });
+
+    }
+
+
+    renderCart();
+
+}
+
+
+function removeFromCart(index){
+
+    cart.splice(index,1);
+
+    renderCart();
+
+}
+
+
+function clearCart(){
+
+    cart = [];
+
+    renderCart();
+
+}
+
+
+function renderCart(){
+
+    const tbody =
+        document.getElementById("cartTable");
+
+    tbody.innerHTML = "";
+
+
+    let subtotal = 0;
+
+
+    cart.forEach((item,index) => {
+
+        const product =
+            db.products.find(p => p.id === item.productId);
+
+        if(!product) return;
+
+
+        const total =
+            item.quantity * item.price;
+
+        subtotal += total;
+
+
+        tbody.innerHTML += `
+
+        <tr>
+
+            <td>${product.name}</td>
+
+            <td>${item.quantity}</td>
+
+            <td>${money(item.price)}</td>
+
+            <td>${money(total)}</td>
+
+            <td>
+
+                <button
+                    class="btn btn-danger btn-small"
+                    onclick="removeFromCart(${index})"
+                >
+                    حذف
+                </button>
+
+            </td>
+
+        </tr>
+
+        `;
+
+    });
+
+
+    const discount =
+        Number(document.getElementById("saleDiscount").value) || 0;
+
+
+    const final =
+        Math.max(0,subtotal - discount);
+
+
+    document.getElementById("cartSubtotal")
+        .textContent = money(subtotal);
+
+    document.getElementById("cartDiscount")
+        .textContent = money(discount);
+
+    document.getElementById("cartFinal")
+        .textContent = money(final);
+
+}
+
+
+function completeSale(){
+
+    if(cart.length === 0){
+
+        alert("الفاتورة فارغة");
+
+        return;
+
+    }
+
+
+    const discount =
+        Number(document.getElementById("saleDiscount").value) || 0;
+
+
+    let subtotal = 0;
+
+    let profit = 0;
+
+
+    const items = cart.map(item => {
+
+        const product =
+            db.products.find(p => p.id === item.productId);
+
+
+        const total =
+            item.quantity * item.price;
+
+
+        subtotal += total;
+
+
+        profit +=
+            item.quantity *
+            (item.price - product.buy);
+
+
+        product.quantity -= item.quantity;
+
+
+        return {
+
+            productId:item.productId,
+            name:product.name,
+            quantity:item.quantity,
+            price:item.price,
+            total
+
+        };
+
+    });
+
+
+    const final =
+        Math.max(0,subtotal - discount);
+
+
+    const sale = {
+
+        id:
+            "INV-" +
+            new Date().getTime(),
+
+        date:now(),
+
+        items,
+
+        subtotal,
+
+        discount,
+
+        total:final,
+
+        profit,
+
+        payment:
+            document.getElementById("paymentMethod").value
+
+    };
+
+
+    db.sales.push(sale);
+
+    saveDB();
+
+
+    cart = [];
+
+    document.getElementById("saleDiscount").value = 0;
+
+
+    alert(
+        `تم تسجيل البيع بنجاح\n\nرقم الفاتورة: ${sale.id}\nالإجمالي: ${money(final)}`
+    );
+
+
+    refresh();
+
+}
+
+
+/* =====================================================
+   SALES TABLE
+===================================================== */
+
+function renderSales(){
+
+    const tbody =
+        document.getElementById("salesTable");
+
+    tbody.innerHTML = "";
+
+
+    [...db.sales]
+        .reverse()
+        .forEach(sale => {
+
+            tbody.innerHTML += `
+
+            <tr>
+
+                <td>${sale.id}</td>
+
+                <td>${formatDate(sale.date)}</td>
+
+                <td>${sale.items.length}</td>
+
+                <td>${money(sale.total)}</td>
+
+                <td>${sale.payment}</td>
+
+            </tr>
+
+            `;
+
+        });
+
+
+    const recent =
+        document.getElementById("recentSales");
+
+    recent.innerHTML = "";
+
+
+    [...db.sales]
+        .slice(-5)
+        .reverse()
+        .forEach(sale => {
+
+            recent.innerHTML += `
+
+            <tr>
+
+                <td>${sale.id}</td>
+
+                <td>${formatDate(sale.date)}</td>
+
+                <td>${money(sale.total)}</td>
+
+                <td>${sale.payment}</td>
+
+            </tr>
+
+            `;
+
+        });
+
+}
+
+
+/* =====================================================
+   PURCHASES
+===================================================== */
+
+function addPurchase(){
+
+    const productId =
+        document.getElementById("purchaseProduct").value;
+
+    const quantity =
+        Number(document.getElementById("purchaseQuantity").value);
+
+    const price =
+        Number(document.getElementById("purchasePrice").value);
+
+    const supplier =
+        document.getElementById("supplier").value.trim();
+
+
+    if(!productId){
+
+        alert("اختر المنتج");
+
+        return;
+
+    }
+
+
+    if(quantity <= 0 || price <= 0){
+
+        alert("تأكد من الكمية والسعر");
+
+        return;
+
+    }
+
+
+    const product =
+        db.products.find(p => p.id === productId);
+
+
+    product.quantity += quantity;
+
+    product.buy = price;
+
+
+    db.purchases.push({
+
+        id:Date.now(),
+
+        date:now(),
+
+        productId,
+
+        productName:product.name,
+
+        quantity,
+
+        price,
+
+        total:quantity * price,
+
+        supplier
+
+    });
+
+
+    saveDB();
+
+
+    document.getElementById("purchaseQuantity").value = 1;
+    document.getElementById("supplier").value = "";
+
+
+    alert("تم تسجيل المشتريات");
+
+    refresh();
+
+}
+
+
+function renderPurchases(){
+
+    const tbody =
+        document.getElementById("purchasesTable");
+
+    tbody.innerHTML = "";
+
+
+    [...db.purchases]
+        .reverse()
+        .forEach(p => {
+
+            tbody.innerHTML += `
+
+            <tr>
+
+                <td>${formatDate(p.date)}</td>
+
+                <td>${p.productName}</td>
+
+                <td>${p.quantity}</td>
+
+                <td>${money(p.total)}</td>
+
+                <td>${p.supplier || "-"}</td>
+
+            </tr>
+
+            `;
+
+        });
+
+}
+
+
+/* =====================================================
+   EXPENSES
+===================================================== */
+
+function addExpense(){
+
+    const name =
+        document.getElementById("expenseName").value.trim();
+
+    const amount =
+        Number(document.getElementById("expenseAmount").value);
+
+
+    if(!name || amount <= 0){
+
+        alert("أدخل بيان المصروف والمبلغ");
+
+        return;
+
+    }
+
+
+    db.expenses.push({
+
+        id:Date.now(),
+
+        date:now(),
+
+        name,
+
+        amount
+
+    });
+
+
+    saveDB();
+
+
+    document.getElementById("expenseName").value = "";
+    document.getElementById("expenseAmount").value = "";
+
+
+    alert("تم تسجيل المصروف");
+
+    refresh();
+
+}
+
+
+function renderExpenses(){
+
+    const tbody =
+        document.getElementById("expensesTable");
+
+    tbody.innerHTML = "";
+
+
+    [...db.expenses]
+        .reverse()
+        .forEach(e => {
+
+            tbody.innerHTML += `
+
+            <tr>
+
+                <td>${formatDate(e.date)}</td>
+
+                <td>${e.name}</td>
+
+                <td>${money(e.amount)}</td>
+
+            </tr>
+
+            `;
+
+        });
+
+}
+
+
+/* =====================================================
+   CASHBOX
+===================================================== */
+
+function getTotalSales(){
+
+    return db.sales.reduce(
+        (sum,s) => sum + Number(s.total),
+        0
+    );
+
+}
+
+
+function getTotalExpenses(){
+
+    return db.expenses.reduce(
+        (sum,e) => sum + Number(e.amount),
+        0
+    );
+
+}
+
+
+function getTotalPurchases(){
+
+    return db.purchases.reduce(
+        (sum,p) => sum + Number(p.total),
+        0
+    );
+
+}
+
+
+function getCashBalance(){
+
+    /*
+       الخزنة الحالية =
+       رصيد البداية
+       + المبيعات
+       - المشتريات
+       - المصروفات
+    */
+
+    return (
+
+        Number(db.cash.opening || 0)
+
+        +
+
+        getTotalSales()
+
+        -
+
+        getTotalPurchases()
+
+        -
+
+        getTotalExpenses()
+
+    );
+
+}
+
+
+function setOpeningBalance(){
+
+    const value =
+        Number(document.getElementById("openingBalance").value);
+
+
+    if(value < 0){
+
+        alert("الرصيد غير صحيح");
+
+        return;
+
+    }
+
+
+    db.cash.opening = value;
+
+    saveDB();
+
+    refresh();
+
+    alert("تم حفظ رصيد بداية الخزنة");
+
+}
+
+
+function renderCash(){
+
+    const sales =
+        getTotalSales();
+
+    const expenses =
+        getTotalExpenses();
+
+    const purchases =
+        getTotalPurchases();
+
+    const balance =
+        getCashBalance();
+
+
+    document.getElementById("cashCurrent")
+        .textContent = money(balance);
+
+    document.getElementById("cashSales")
+        .textContent = money(sales);
+
+    document.getElementById("cashExpenses")
+        .textContent = money(expenses);
+
+    document.getElementById("cashPurchases")
+        .textContent = money(purchases);
+
+
+    document.getElementById("openingBalance")
+        .value = db.cash.opening || 0;
+
+
+    const tbody =
+        document.getElementById("cashTable");
+
+    tbody.innerHTML = "";
+
+
+    if(db.cash.opening){
+
+        tbody.innerHTML += `
+
+        <tr>
+
+            <td>-</td>
+
+            <td>
+                <span class="badge success">
+                    افتتاح
+                </span>
+            </td>
+
+            <td>رصيد بداية الخزنة</td>
+
+            <td>${money(db.cash.opening)}</td>
+
+        </tr>
+
+        `;
+
+    }
+
+
+    [...db.sales]
+        .reverse()
+        .slice(0,20)
+        .forEach(s => {
+
+            tbody.innerHTML += `
+
+            <tr>
+
+                <td>${formatDate(s.date)}</td>
+
+                <td>
+                    <span class="badge success">
+                        بيع
+                    </span>
+                </td>
+
+                <td>${s.id}</td>
+
+                <td>+ ${money(s.total)}</td>
+
+            </tr>
+
+            `;
+
+        });
+
+
+    [...db.purchases]
+        .reverse()
+        .slice(0,20)
+        .forEach(p => {
+
+            tbody.innerHTML += `
+
+            <tr>
+
+                <td>${formatDate(p.date)}</td>
+
+                <td>
+                    <span class="badge danger">
+                        شراء
+                    </span>
+                </td>
+
+                <td>${p.productName}</td>
+
+                <td>- ${money(p.total)}</td>
+
+            </tr>
+
+            `;
+
+        });
+
+
+    [...db.expenses]
+        .reverse()
+        .slice(0,20)
+        .forEach(e => {
+
+            tbody.innerHTML += `
+
+            <tr>
+
+                <td>${formatDate(e.date)}</td>
+
+                <td>
+                    <span class="badge danger">
+                        مصروف
+                    </span>
+                </td>
+
+                <td>${e.name}</td>
+
+                <td>- ${money(e.amount)}</td>
+
+            </tr>
+
+            `;
+
+        });
+
+}
+
+
+/* =====================================================
+   DASHBOARD
+===================================================== */
+
+function renderDashboard(){
+
+    const todaySales =
+        db.sales
+        .filter(s => isToday(s.date));
+
+
+    const sales =
+        todaySales.reduce(
+            (sum,s) => sum + s.total,
+            0
+        );
+
+
+    const profit =
+        todaySales.reduce(
+            (sum,s) => sum + s.profit,
+            0
+        );
+
+
+    document.getElementById("todaySales")
+        .textContent = money(sales);
+
+
+    document.getElementById("todayProfit")
+        .textContent = money(profit);
+
+
+    document.getElementById("cashBalance")
+        .textContent = money(getCashBalance());
+
+
+    document.getElementById("productsCount")
+        .textContent = db.products.length;
+
+
+    const alerts =
+        document.getElementById("stockAlerts");
+
+    alerts.innerHTML = "";
+
+
+    const lowStock =
+        db.products.filter(
+            p => p.quantity <= p.min
+        );
+
+
+    if(lowStock.length === 0){
+
+        alerts.innerHTML = `
+
+            <div class="alert" style="background:#ecfdf5;color:#166534">
+                ✓ كل المنتجات متوفرة
+            </div>
+
+        `;
+
+    }else{
+
+        lowStock.forEach(p => {
+
+            const type =
+                p.quantity <= 0
+                    ? "danger"
+                    : "warning";
+
+
+            alerts.innerHTML += `
+
+            <div class="alert ${type}">
+
+                <strong>${p.name}</strong>
+
+                <br>
+
+                المتبقي: ${p.quantity}
+
+            </div>
+
+            `;
+
+        });
+
+    }
+
+}
+
+
+/* =====================================================
+   REPORTS
+===================================================== */
+
+function renderReports(){
+
+    const sales =
+        getTotalSales();
+
+    const expenses =
+        getTotalExpenses();
+
+    const purchases =
+        getTotalPurchases();
+
+
+    const profit =
+        db.sales.reduce(
+            (sum,s) => sum + s.profit,
+            0
+        );
+
+
+    const stockValue =
+        db.products.reduce(
+            (sum,p) =>
+                sum + (p.quantity * p.buy),
+            0
+        );
+
+
+    document.getElementById("reportSales")
+        .textContent = money(sales);
+
+    document.getElementById("reportProfit")
+        .textContent = money(profit);
+
+    document.getElementById("reportExpenses")
+        .textContent = money(expenses);
+
+    document.getElementById("reportStock")
+        .textContent = money(stockValue);
+
+
+    document.getElementById("reportTable")
+        .innerHTML = `
+
+        <tr>
+            <td>إجمالي المبيعات</td>
+            <td>${money(sales)}</td>
+        </tr>
+
+        <tr>
+            <td>إجمالي تكلفة المشتريات</td>
+            <td>${money(purchases)}</td>
+        </tr>
+
+        <tr>
+            <td>إجمالي الأرباح قبل المصروفات</td>
+            <td>${money(profit)}</td>
+        </tr>
+
+        <tr>
+            <td>إجمالي المصروفات</td>
+            <td>${money(expenses)}</td>
+        </tr>
+
+        <tr>
+            <td><strong>صافي الربح</strong></td>
+            <td>
+                <strong>
+                    ${money(profit - expenses)}
+                </strong>
+            </td>
+        </tr>
+
+        <tr>
+            <td>قيمة المخزون الحالية</td>
+            <td>${money(stockValue)}</td>
+        </tr>
+
+        `;
+
+}
+
+
+/* =====================================================
+   BACKUP
+===================================================== */
+
+function backupData(){
+
+    const data =
+        JSON.stringify(db,null,2);
+
+
+    const blob =
+        new Blob(
+            [data],
+            {type:"application/json"}
+        );
+
+
+    const url =
+        URL.createObjectURL(blob);
+
+
+    const a =
+        document.createElement("a");
+
+
+    a.href = url;
+
+    a.download =
+        "TM-Tech-Market-Backup-" +
+        new Date().toISOString().slice(0,10) +
+        ".json";
+
+
+    a.click();
+
+    URL.revokeObjectURL(url);
+
+}
+
+
+/* =====================================================
+   REFRESH EVERYTHING
+===================================================== */
+
+function refresh(){
+
+    renderProducts();
+
+    renderProductSelects();
+
+    renderCart();
+
+    renderSales();
+
+    renderPurchases();
+
+    renderExpenses();
+
+    renderCash();
+
+    renderDashboard();
+
+    renderReports();
+
+}
+
+
+/* =====================================================
+   INITIALIZE
+===================================================== */
+
+document.getElementById("todayDate")
+    .textContent =
+        new Date().toLocaleDateString(
+            "ar-EG",
+            {
+                weekday:"long",
+                year:"numeric",
+                month:"long",
+                day:"numeric"
+            }
+        );
+
+
+refresh();
+
+</script>
+
+</body>
+</html>
